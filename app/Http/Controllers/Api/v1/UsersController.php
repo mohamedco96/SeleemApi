@@ -1,15 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Api\v1;
-
-use App\User;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ApiResource;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-
-class UserController extends Controller
+class UsersController extends Controller
 {
     public function auth(Request $request)
     {
@@ -35,8 +32,7 @@ class UserController extends Controller
 
     }
 
-
-       /**
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -65,18 +61,17 @@ class UserController extends Controller
             'training_type' => 'max:255',
             'Water' => 'max:255',
             'online' => 'max:255',
-            
+
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response(['error' => $validator->errors(), 'Validation Error']);
         }
 
         $User = User::create($data);
 
-        return response([ 'user' => new ApiResource($User), 'message' => 'Created User successfully'], 200);
+        return response(['user' => new ApiResource($User), 'message' => 'Created User successfully'], 200);
     }
-
 
     /**
      * Display a listing of the resource.
